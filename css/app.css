@@ -1,0 +1,36 @@
+#navbarNav {
+    background-color: orange;
+}
+.content{
+   margin-top: 60px;
+}
+.why-1st {
+    background-color: lightgoldenrodyellow;
+}
+.why-2st {
+    background-color: yellow;
+}
+.why-3st {
+    background-color: lightsalmon;
+}
+.why-4st {
+    background-color: orange;
+}
+.card-header-small, .card-header-large {
+    background-color: #FFA500;
+}
+.card-header-medium {
+    background-color: #FFC107;
+}
+
+.btn-pizza-type, .footer, .btn-pizza, #btn-order {
+    background-color: #FFA500;
+}
+.btn-pizza.active,.btn-pizza-type.active{
+    background-color: green;
+    color: white;
+}
+#modalThankContent{
+    background-color: orange;
+
+}

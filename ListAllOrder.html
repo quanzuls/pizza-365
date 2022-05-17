@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order List</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <!-- Import them style bootstrap cho datatable -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css"
+    />
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="text-center mt-2 mb-2">
+        <h2>DANH SÁCH ĐƠN HÀNG</h2>
+      </div>
+      <div class="jumbotron">
+        <div class="form-inline">
+          <div class="col-sm-2">
+            <label for="">Trạng thái Order</label>
+          </div>
+          <div class="col-sm-3">
+            <select
+              name=""
+              id="select-status"
+              class="form-control"
+              style="width: 250px"
+            ></select>
+          </div>
+          <div class="col-sm-2">
+            <label for="">Loại pizza</label>
+          </div>
+          <div class="col-sm-3">
+            <select
+              name=""
+              id="select-type-pizza"
+              class="form-control"
+              style="width: 250px"
+            ></select>
+          </div>
+          <div class="col-sm-2">
+            <button
+              type="button"
+              id="btn-filter-order"
+              class="btn btn-primary w-75"
+            >
+              Lọc
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <table
+        class="table table-bordered table-striped table-hover"
+        id="tbl-order"
+      >
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Kich co Combo</th>
+            <th>Loại pizza</th>
+            <th>Nước uống</th>
+            <th>Thành tiền</th>
+            <th>Họ và tên</th>
+            <th>Số điện thoại</th>
+            <th>Trạng thái</th>
+            <th>Chi tiết</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Info Courses Modal -->
+    <div>
+      <div id="infor-order-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="h5-modal-title">
+                Infomation Courses
+              </h5>
+              <button class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div id="frm-infor-order">
+                <!-- vùng hiển thị thông tin đơn hàng(order) -->
+                <div
+                  id="div-container-order"
+                  class="container bg-secondary p-2 jumbotron"
+                >
+                  <div class="container rounded bg-white">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row mt-3 mx-4">
+                          <div class="col-12">
+                            <label class="order-form-label"
+                              >OrderId (Mã đơn hàng)</label
+                            >
+                          </div>
+                          <div class="col-12 col-sm-12 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="orderId"
+                              id="inp-orderid"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mx-4">
+                          <div class="col-6">
+                            <label class="order-form-label">Cỡ combo</label>
+                          </div>
+                          <div class="col-6">
+                            <label class="order-form-label"
+                              >Đường kính pizza</label
+                            >
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="kichCo"
+                              id="inp-combo-size"
+                            />
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="duongKinh"
+                              id="inp-duong-kinh"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mx-4">
+                          <div class="col-6">
+                            <label class="order-form-label"
+                              >Sườn nướng (miếng)</label
+                            >
+                          </div>
+                          <div class="col-6">
+                            <label class="order-form-label"
+                              >Số lượng nước uống</label
+                            >
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="suon"
+                              id="inp-suon-nuong"
+                            />
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="soLuongNuoc"
+                              id="inp-number-drink"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mx-4">
+                          <div class="col-6">
+                            <label class="order-form-label">Salad</label>
+                          </div>
+                          <div class="col-6">
+                            <label class="order-form-label">Đồ uống</label>
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="salad"
+                              id="inp-salad"
+                            />
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="idLoaiNuocUong"
+                              id="inp-drink"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mx-4">
+                          <div class="col-6">
+                            <label class="order-form-label">Mã voucher</label>
+                          </div>
+                          <div class="col-6">
+                            <label class="order-form-label">Loại pizza</label>
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="idVourcher"
+                              id="inp-voucherid"
+                            />
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="loaiPizza"
+                              id="inp-type-pizza"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mx-4">
+                          <div class="col-6">
+                            <label class="order-form-label">Thành tiền</label>
+                          </div>
+                          <div class="col-6">
+                            <label class="order-form-label">Giảm giá</label>
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="thanhTien"
+                              id="inp-total-price"
+                            />
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="giamGia"
+                              id="inp-discount"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mx-4">
+                          <div class="col-6">
+                            <label class="order-form-label">Họ và tên</label>
+                          </div>
+                          <div class="col-6">
+                            <label class="order-form-label">Địa chỉ</label>
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="hoTen"
+                              id="inp-fullname"
+                            />
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="diaChi"
+                              id="inp-address"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mx-4">
+                          <div class="col-6">
+                            <label class="order-form-label"
+                              >Số điện thoại</label
+                            >
+                          </div>
+                          <div class="col-6">
+                            <label class="order-form-label">Email</label>
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="soDienThoai"
+                              id="inp-phone"
+                            />
+                          </div>
+
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="email"
+                              id="inp-email"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mx-4">
+                          <div class="col-6">
+                            <label class="order-form-label">Lời nhắn</label>
+                          </div>
+                          <div class="col-6">
+                            <label class="order-form-label">Trạng thái</label>
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="loiNhan"
+                              id="inp-message"
+                            />
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="trangThai"
+                              id="inp-status"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mb-3 mx-4">
+                          <div class="col-6">
+                            <label class="order-form-label"
+                              >Ngày tạo đơn hàng</label
+                            >
+                          </div>
+                          <div class="col-6">
+                            <label class="order-form-label"
+                              >Ngày cập nhật</label
+                            >
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="ngayTao"
+                              id="inp-create-date"
+                            />
+                          </div>
+                          <div class="col-6 col-sm-6 mt-2 pr-sm-2">
+                            <input
+                              class="order-form-input"
+                              name="ngayCapNhat"
+                              id="inp-update-date"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mt-3 mb-3 mx-4">
+                          <div class="col-12">
+                            <button
+                              class="btn btn-success"
+                              onclick="onBtnConfirmClick()"
+                            >
+                              Confirm
+                            </button>
+                            <button
+                              class="btn btn-primary"
+                              onclick="onBtnCancelClick()"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- vùng hiển thị thông tin đơn hàng(order) -->
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" id="" data-dismiss="modal">
+                Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/admin_app.js"></script>
+  </body>
+</html>
